@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKOMBY Kombucha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        /* Customizing Tailwind's theme with your brand colors */
+        /* Using approximate hex codes based on the images */
+        :root {
+            --color-skomby-orange: #E5735A; /* Warm orange/terracotta */
+            --color-skomby-background: #F8F0E3; /* Light background */
+            --color-skomby-text: #4A3B31; /* Dark neutral for text */
+            --color-skomby-purple: #4A3B6F; /* Deep purple/indigo */
+            --color-skomby-green: #4F6D5A; /* Deep green */
+        }
+
+        .bg-skomby-background { background-color: var(--color-skomby-background); }
+        .text-skomby-orange { color: var(--color-skomby-orange); }
+        .text-skomby-text { color: var(--color-skomby-text); }
+        .text-skomby-purple { color: var(--color-skomby-purple); }
+        .text-skomby-green { color: var(--color-skomby-green); }
+        .border-skomby-orange { border-color: var(--color-skomby-orange); }
+        .border-skomby-purple { border-color: var(--color-skomby-purple); }
+        .border-skomby-green { border-color: var(--color-skomby-green); }
+
+        .hover\:bg-skomby-orange:hover { background-color: var(--color-skomby-orange); }
+        .hover\:text-white:hover { color: white; } /* Button text color on hover */
+        .hover\:bg-skomby-purple:hover { background-color: var(--color-skomby-purple); }
+        .hover\:bg-skomby-green:hover { background-color: var(--color-skomby-green); }
+
+        /* Applying custom fonts */
+        .font-serif-skomby {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .font-sans-skomby {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Basic body styling for default font and background */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-skomby-text); /* Default text color */
+            background-color: var(--color-skomby-background);
+            line-height: 1.6; /* Improve readability */
+        }
+
+        /* Added some subtle transitions for smoother hovers */
+        a, button {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Ensure images are responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Back-to-top button styling */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--color-skomby-orange);
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Button hover effect */
+        a, button {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        a:hover, button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-skomby-background text-skomby-text font-sans-skomby">
+
+    <header class="bg-skomby-background py-6 px-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="h-10"> <img src="images/Pasted image.png" alt="SKOMBY Logo" class="h-full">
+            </div>
+            <nav>
+                <ul class="flex space-x-4 text-lg">
+                    <li><a href="#home" class="text-skomby-text hover:text-skomby-orange transition duration-300">Home</a></li>
+                    <li><a href="#about" class="text-skomby-text hover:text-skomby-orange transition duration-300">About</a></li>
+                    <li><a href="#flavors" class="text-skomby-text hover:text-skomby-orange transition duration-300">Flavors</a></li>
+                    <li><a href="#contact" class="text-skomby-text hover:text-skomby-orange transition duration-300">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="relative bg-cover bg-center h-screen flex items-center justify-center text-white" style="background-image: url('images/Gemini_Generated_Image_kumbucha.jpeg');">
+            <div class="absolute inset-0 bg-black opacity-40"></div> <div class="container mx-auto text-center z-10" data-aos="fade-up">
+                <h2 class="text-5xl md:text-7xl font-serif-skomby font-bold mb-4 text-skomby-orange drop-shadow-lg">Discover the Refreshing Taste of SKOMBY</h2>
+                <p class="text-xl md:text-2xl font-sans-skomby mb-8 text-white">Naturally Fermented, Deliciously Flavored Kombucha from Kerala</p>
+                <a href="#flavors" class="bg-skomby-orange text-white font-sans-skomby py-3 px-8 rounded-full text-lg font-semibold hover:bg-opacity-90 transition duration-300 shadow-lg">Explore Flavors</a>
+            </div>
+        </section>
+
+        <section id="about" class="py-20 px-4 bg-skomby-background">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1" data-aos="fade-right">
+                     <img src="https://placehold.co/600x400/4F6D5A/F8F0E3?text=Kerala+Craft" alt="About SKOMBY" class="mx-auto rounded-lg shadow-lg">
+                </div>
+                <div class="order-1 md:order-2 text-center md:text-left" data-aos="fade-left">
+                    <h2 class="text-4xl font-serif-skomby text-skomby-green mb-6 font-semibold">Our Story</h2>
+                    <p class="text-lg mb-6">
+                        Skomby is a handcrafted health focused kombucha brewed with care in the heart of the Malabar region of Kerala, India.
+                    </p>
+                    <p class="text-lg mb-6">
+                         We offer a refreshing, nourishing drink by combining ancient fermentation techniques with locally sourced ingredients, bringing you the authentic taste and goodness of Kerala in every bottle.
+                    </p>
+                     <a href="#contact" class="inline-block border border-skomby-purple text-skomby-purple font-sans-skomby py-3 px-8 rounded-full text-lg font-semibold hover:bg-skomby-purple hover:text-white transition duration-300">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="flavors" class="py-20 px-4">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-serif-skomby text-skomby-purple mb-12 font-semibold" data-aos="fade-up">Our Natural Flavors</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-skomby-background p-6 rounded-lg shadow-md" data-aos="zoom-in">
+                        <img src="https://placehold.co/300x300/E5735A/F8F0E3?text=Zesty+Orange" alt="Zesty Orange Flavor" class="mx-auto mb-4 rounded-lg">
+                        <h3 class="text-2xl font-serif-skomby text-skomby-orange mb-2 font-semibold">Zesty Orange</h3>
+                        <p class="text-skomby-text">
+                            A bright and tangy burst of citrus, perfectly balanced with the natural fizz of kombucha. Made with real oranges.
+                        </p>
+                    </div>
+                    <div class="bg-skomby-background p-6 rounded-lg shadow-md" data-aos="zoom-in">
+                        <img src="https://placehold.co/300x300/4A3B6F/F8F0E3?text=Butterfly+Pea+Infusion" alt="Butterfly Pea Infusion" class="mx-auto mb-4 rounded-lg">
+                         <h3 class="text-2xl font-serif-skomby text-skomby-purple mb-2 font-semibold">Butterfly Pea Infusion</h3>
+                        <p class="text-skomby-text">
+                            A delightful blend of mixed berries, offering a sweet and slightly tart flavor that's incredibly refreshing.
+                        </p>
+                    </div>
+                    <div class="bg-skomby-background p-6 rounded-lg shadow-md" data-aos="zoom-in">
+                        <img src="https://placehold.co/300x300/4F6D5A/F8F0E3?text=Passion+Delight" alt="Passion Delight" class="mx-auto mb-4 rounded-lg">
+                         <h3 class="text-2xl font-serif-skomby text-skomby-green mb-2 font-semibold">Passion Delight</h3>
+                        <p class="text-skomby-text">
+                            A warming and invigorating flavor with a kick of natural ginger, perfect for a refreshing pick-me-up.
+                        </p>
+                    </div>
+                </div>
+                 <div class="mt-12">
+                     <a href="#flavors" class="bg-skomby-orange text-white font-sans-skomby py-3 px-8 rounded-full text-lg font-semibold hover:bg-opacity-90 transition duration-300 shadow-lg">View All Flavors</a>
+                 </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 px-4 bg-skomby-background">
+            <div class="container mx-auto text-center">
+                <h2 class="text-4xl font-serif-skomby text-skomby-orange mb-8 font-semibold">Find SKOMBY Near You</h2>
+                <p class="text-lg mb-8 max-w-2xl mx-auto">
+                    SKOMBY is available at select retailers and online stores. Find your nearest location or order online today!
+                </p>
+                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                     <a href="#" class="inline-block border border-skomby-purple text-skomby-purple font-sans-skomby py-3 px-8 rounded-full text-lg font-semibold hover:bg-skomby-purple hover:text-white transition duration-300">Retail Locations</a>
+                     <a href="#" class="inline-block border border-skomby-purple text-skomby-purple font-sans-skomby py-3 px-8 rounded-full text-lg font-semibold hover:bg-skomby-purple hover:text-white transition duration-300">Shop Online</a>
+                 </div>
+            </div>
+        </section>
+
+         <section class="py-20 px-4">
+            <div class="container mx-auto text-center">
+                 <h2 class="text-4xl font-serif-skomby text-skomby-green mb-8 font-semibold">Get in Touch</h2>
+                <p class="text-lg mb-8 max-w-2xl mx-auto">
+                    Have questions or interested in stocking SKOMBY? We'd love to hear from you!
+                </p>
+                <a href="mailto:info@skombykombucha.com" class="inline-block text-skomby-orange font-sans-skomby py-3 px-8 rounded-full text-lg font-semibold hover:bg-skomby-green transition duration-300 shadow-lg">Email Us</a>
+            </div>
+        </section>
+
+        <!-- Back-to-Top Button -->
+        <div id="back-to-top" class="hidden">
+            <i class="fas fa-chevron-up"></i>
+        </div>
+
+    </main>
+
+    <footer class="bg-skomby-text text-white py-8 px-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 SKOMBY Kombucha. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-4 text-2xl">
+                 <a href="#" class="text-white hover:text-skomby-orange transition duration-300"><i class="fab fa-instagram"></i></a>
+                 <a href="#" class="text-white hover:text-skomby-orange transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                 <a href="#" class="text-white hover:text-skomby-orange transition duration-300"><i class="fab fa-twitter"></i></a>
+             </div>
+             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Back-to-top button functionality
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
