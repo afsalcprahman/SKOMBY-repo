@@ -1,464 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKOMBY Kombucha</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <style>
-        /* Customizing Tailwind's theme with your brand colors */
-        /* Using approximate hex codes based on the images */
-        :root {
-            --color-skomby-orange: #E5735A;
-            /* Warm orange/terracotta */
-            --color-skomby-background: #F8F0E3;
-            /* Light background */
-            --color-skomby-text: #4A3B31;
-            /* Dark neutral for text */
-            --color-skomby-purple: #4A3B6F;
-            /* Deep purple/indigo */
-            --color-skomby-green: #4F6D5A;
-            /* Deep green */
-            --color-skomby-yellow: #b3a034;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SKOMBY Kombucha</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <style>
+    :root {
+      --color-skomby-orange: #E5735A;
+      --color-skomby-background: #F8F0E3;
+      --color-skomby-text: #4A3B31;
+      --color-skomby-purple: #4A3B6F;
+      --color-skomby-green: #4F6D5A;
+      --color-skomby-yellow: #b3a034;
+    }
 
-        .flavor-zesty-orange {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-image: url('images/Zesty Orange.jpeg'); /* Default image */
-            transition: background-color 0.3s ease, background-image 0.3s ease; /* Smooth transition */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--color-skomby-text);
+      background-color: var(--color-skomby-background);
+    }
 
-        .flavor-zesty-orange:hover {
-            background-color: var(--color-skomby-orange); /* Show color on hover */
-            background-image: none; /* Hide image on hover */
-        }
+    .font-serif-skomby {
+      font-family: 'Cormorant Garamond', serif;
+    }
 
-        .flavor-tropical-mango {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-image: url('images/Tropical Mango.jpeg'); /* Default image */
-            transition: background-color 0.3s ease, background-image 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        .flavor-tropical-mango:hover {
-            background-color: var(--color-skomby-yellow); /* Show color on hover */
-            background-image: none;
-        }
+    #back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--color-skomby-orange);
+      color: white;
+      border-radius: 9999px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
 
-        .flavor-passion-delight {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-image: url('images/Passion Delight.jpeg'); /* Default image */
-            transition: background-color 0.3s ease, background-image 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .flavor-passion-delight:hover {
-            background-color: var(--color-skomby-green); /* Show color on hover */
-            background-image: none;
-        }
-
-        .flavor-butterfly-pea {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-image: url('images/Butterfly Pea.jpeg'); /* Default image */
-            transition: background-color 0.3s ease, background-image 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .flavor-butterfly-pea:hover {
-            background-color: var(--color-skomby-purple); /* Show color on hover */
-            background-image: none;
-        }
-
-        .bg-skomby-background {
-            background-color: var(--color-skomby-background);
-        }
-
-        .text-skomby-orange {
-            color: var(--color-skomby-orange);
-        }
-
-        .text-skomby-text {
-            color: var(--color-skomby-text);
-        }
-
-        .text-skomby-purple {
-            color: var(--color-skomby-purple);
-        }
-
-        .text-skomby-green {
-            color: var(--color-skomby-green);
-        }
-
-        .border-skomby-orange {
-            border-color: var(--color-skomby-orange);
-        }
-
-        .border-skomby-purple {
-            border-color: var(--color-skomby-purple);
-        }
-
-        .border-skomby-green {
-            border-color: var(--color-skomby-green);
-        }
-
-        .hover\:bg-skomby-orange:hover {
-            background-color: var(--color-skomby-orange);
-        }
-
-        .hover\:text-white:hover {
-            color: white;
-        }
-
-        /* Button text color on hover */
-        .hover\:bg-skomby-purple:hover {
-            background-color: var(--color-skomby-purple);
-        }
-
-        .hover\:bg-skomby-green:hover {
-            background-color: var(--color-skomby-green);
-        }
-
-        /* Applying custom fonts */
-        .font-serif-skomby {
-            font-family: 'Cormorant Garamond', serif;
-        }
-
-        .font-sans-skomby {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Basic body styling for default font and background */
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--color-skomby-text);
-            /* Default text color */
-            background-color: var(--color-skomby-background);
-            line-height: 1.6;
-            /* Improve readability */
-        }
-
-        /* Added some subtle transitions for smoother hovers */
-        a,
-        button {
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Ensure images are responsive */
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Back-to-top button styling */
-        #back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--color-skomby-orange);
-            color: white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        #back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Button hover effect */
-        a,
-        button {
-            transition: transform 0.3s ease-in-out;
-        }
-
-        a:hover,
-        button:hover {
-            transform: scale(1.05);
-        }
-
-        .flavor-zesty-orange:hover h3,
-        .flavor-zesty-orange:hover p,
-        .flavor-tropical-mango:hover h3,
-        .flavor-tropical-mango:hover p,
-        .flavor-passion-delight:hover h3,
-        .flavor-passion-delight:hover p,
-        .flavor-butterfly-pea:hover h3,
-        .flavor-butterfly-pea:hover p {
-            color: white; /* Change text color on hover */
-        }
-
-        .flavor-zesty-orange h3,
-        .flavor-zesty-orange p,
-        .flavor-tropical-mango h3,
-        .flavor-tropical-mango p,
-        .flavor-passion-delight h3,
-        .flavor-passion-delight p,
-        .flavor-butterfly-pea h3,
-        .flavor-butterfly-pea p{
-            display: none;
-            color: var(--color-skomby-text);
-        }
-
-        .flavor-zesty-orange:hover h3,
-        .flavor-zesty-orange:hover p,
-        .flavor-tropical-mango:hover h3,
-        .flavor-tropical-mango:hover p,
-        .flavor-passion-delight:hover h3,
-        .flavor-passion-delight:hover p,
-        .flavor-butterfly-pea:hover h3,
-        .flavor-butterfly-pea:hover p {
-            display: block;
-            color: white;
-        }
-
-    </style>
+    #back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 </head>
-<body class="bg-skomby-background text-skomby-text font-sans-skomby">
-    <header class="bg-skomby-background py-6 px-4 shadow-md sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="h-10">
-                <img src="images/Pasted image-bg remove.png" alt="SKOMBY Logo" class="h-16 opacity-80 hover:opacity-100 transition-opacity duration-300" width="auto">
-            </div>
-            <nav>
-                <ul class="flex space-x-4 text-lg">
-                    <li><a href="#home" class="text-skomby-text hover:text-skomby-orange transition duration-300">Home</a></li>
-                    <li><a href="#about" class="text-skomby-text hover:text-skomby-orange transition duration-300">About</a></li>
-                    <li><a href="#flavors" class="text-skomby-text hover:text-skomby-orange transition duration-300">Flavors</a></li>
-                    <li><a href="#contact" class="text-skomby-text hover:text-skomby-orange transition duration-300">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<body class="bg-[var(--color-skomby-background)] text-[var(--color-skomby-text)]">
 
-    <main>
-        <section id="home" class="relative bg-cover bg-center h-screen flex items-center justify-center text-white" style="background-image: url('images/imagecompress.png');">
-            <div class="absolute inset-0 bg-black opacity-40"></div>
-            <div class="container mx-auto text-center z-10" data-aos="fade-up">
-                <h2 class="text-5xl md:text-7xl font-serif-skomby font-bold mb-4 drop-shadow-lg" style="color: var(--color-skomby-yellow);">
-                    Discover the Refreshing Taste of SKOMBY
-                </h2>
-                <p class="text-xl md:text-2xl font-sans-skomby mb-8 text-white">Naturally Fermented, Deliciously Flavored
-                    Kombucha from Kerala</p>
-                <a href="#flavors" class="bg-skomby-orange text-white font-sans-skomby py-3 px-8 rounded-full text-lg font-semibold hover:bg-opacity-90 transition duration-300 shadow-lg">Explore
-                    Flavors</a>
-            </div>
-        </section>
-
-        <section id="about" class="py-20 px-4 bg-skomby-background">
-            <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="order-2 md:order-1" data-aos="fade-right">
-                    <img src="https://placehold.co/600x400/4F6D5A/F8F0E3?text=Kerala+Craft&font=roboto&size=40" alt="About SKOMBY" class="mx-auto rounded-lg shadow-lg">
-                </div>
-                <div class="order-1 md:order-2 text-center md:text-left" data-aos="fade-left">
-                    <h2 class="text-4xl font-serif-skomby text-skomby-green mb-6 font-semibold">Our Story</h2>
-                    <p class="text-lg mb-6">
-                        Skomby is a handcrafted health focused kombucha brewed with care in the heart of the Malabar region of Kerala, India.
-                    </p>
-                    <p class="text-lg mb-6">
-                        We offer a refreshing, nourishing drink by combining ancient fermentation techniques with locally sourced
-                        ingredients, bringing you the authentic taste and goodness of Kerala in every bottle.
-                    </p>
-                    <a href="#contact" class="inline-block border border-skomby-purple text-skomby-purple font-sans-skomby py-3 px-8 rounded-full text-lg font-semibold hover:bg-skomby-purple hover:text-white transition duration-300">Learn
-                        More</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="flavors" class="py-20 px-4">
-            <div class="container mx-auto text-center">
-                <h2 class="text-4xl font-serif-skomby text-skomby-purple mb-12 font-semibold" data-aos="fade-up">Our Natural
-                    Flavors</h2>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div class="bg-transparent p-6 rounded-lg shadow-md flavor-zesty-orange" data-aos="zoom-in" style="height: 400px;">
-                        <h3 class="text-2xl font-serif-skomby  mb-2 font-semibold" >Zesty Orange</h3>
-                        <p class="text-skomby-text" >
-                            A bright and tangy burst of citrus, perfectly balanced with the natural fizz of kombucha. Made with real oranges.
-                        </p>
-                    </div>
-                    <div class="bg-transparent p-6 rounded-lg shadow-md flavor-butterfly-pea" data-aos="zoom-in" style="height: 400px;">
-                        <h3 class="text-2xl font-serif-skomby  mb-2 font-semibold" >Butterfly Pea Infusion</h3>
-                        <p class="text-skomby-text" >
-                            A delightful blend of mixed berries, offering a sweet and slightly tart flavor that's incredibly refreshing.
-                        </p>
-                    </div>
-                    <div class="bg-transparent p-6 rounded-lg shadow-md flavor-passion-delight" data-aos="zoom-in" style="height: 400px;">
-                        <h3 class="text-2xl font-serif-skomby  mb-2 font-semibold" >Passion Delight</h3>
-                        <p class="text-skomby-text" >
-                            A warming and invigorating flavor with a kick of natural ginger, perfect for a refreshing pick-me-up.
-                        </p>
-                    </div>
-                    <div class="bg-transparent p-6 rounded-lg shadow-md flavor-tropical-mango" data-aos="zoom-in" style="height: 400px;">
-                        <!-- <img src="https://placehold.co/300x300/b3a034/F8F0E3?text=Tropical+Mango" alt="Tropical Mango Flavor" class="mx-auto mb-4 rounded-lg" > -->
-                        <h3 class="text-2xl font-serif-skomby  mb-2 font-semibold" >Tropical Mango</h3>
-                        <p class="text-skomby-text" >
-                            A taste of the tropics! Sweet and juicy mango perfectly complements the refreshing fizz of our kombucha.
-                        </p>
-                    </div>
-                </div>
-                <div class="mt-12">
-                    <a href="#flavors" class="bg-skomby-orange text-skomby-green font-sans-skomby py-3 px-8 rounded-full text-lg font-semibold hover:bg-opacity-90 hover:bg-skomby-green hover:text-white transition duration-300 shadow-lg">View
-                        All Flavors</a>
-                </div>
-            </div>
-        </section>
-
-           <section id="contact" class="py-20 px-4 bg-skomby-background">
-
-
-        <div class="container mx-auto text-center">
-  <h2 class="text-4xl font-serif-skomby text-skomby-orange mb-8 font-semibold">Find SKOMBY Near You</h2>
-  <p class="text-lg mb-8 max-w-2xl mx-auto">
-    SKOMBY is available at select retail locations. Find your nearest store and grab yours today!
-  </p>
-  <div class="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-8">
-    <!-- Mamatha Grand City -->
-    <div class="relative group w-64 h-40 overflow-hidden rounded shadow-lg">
-      <a href="https://mamatharestaurant.com" target="_blank" rel="noopener noreferrer">
-        <img src="https://mamatharestaurant.com/wp-content/uploads/2024/12/7K04ED_1690456900233_0.png" alt="Mamatha Grand City" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white p-4">
-          <h3 class="text-lg font-semibold mb-2">Mamatha Grand City</h3>
-          <p class="text-sm text-center">Areekode Road, Edavannappara, Malappuram, Kerala 673645</p>
-        </div>
-      </a>
-    </div>
-    <!-- Mall of Mukkam -->
-    <div class="relative group w-64 h-40 overflow-hidden rounded shadow-lg">
-      <a href="https://www.mallofmukkam.com" target="_blank" rel="noopener noreferrer">
-        <img src="https://www.mallofmukkam.com/images/shops/freshday.jpg" alt="Mall of Mukkam" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white p-4">
-          <h3 class="text-lg font-semibold mb-2">Fresh Day, Mall of Mukkam</h3>
-          <p class="text-sm text-center">Edavanna - Koyilandy State Highway, Opposite Bypass Road, Mukkam, Kozhikode, Kerala 673602</p>
-        </div>
-      </a>
-    </div>
-    <!-- Family Hypermart -->
-    <div class="relative group w-64 h-40 overflow-hidden rounded shadow-lg">
-      <!-- <a href="https://www.google.com/maps/place/Family+Hypermart/@11.319438,75.9962745,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOWQut4ZpDuW-2PizgOwOxYL2pucf05i6TkiKc!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fp%2FAF1QipOWQut4ZpDuW-2PizgOwOxYL2pucf05i6TkiKc%3Dw203-h270-k-no!7i1200!8i1600" target="_blank" rel="noopener noreferrer"> -->
-        <img src="https://lh3.googleusercontent.com/p/AF1QipOWQut4ZpDuW-2PizgOwOxYL2pucf05i6TkiKc=w203-h270-k-no" alt="Family Hypermart" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white p-4">
-          <h3 class="text-lg font-semibold mb-2">Family Hypermart</h3>
-          <p class="text-sm text-center">Mukkam, Kozhikode, Kerala</p>
-        </div>
-      </a>
-    </div>
-    <!-- Freshlyone Hypermarket -->
-    <div class="relative group w-64 h-40 overflow-hidden rounded shadow-lg">
-      <!-- <a href="https://www.google.com/maps/place/FRESHLYONE+HYPERMARKET+LLP/@11.2700086,75.9875567,3a,75y,90t/data=!3m8!1e2!3m6!1sCIHM0ogKEICAgID6kemz5QE!2e10!3e12!6shttps:%2F%2Flh3.googleusercontent.com%2Fgps-cs-s%2FAC9h4no_ivr82m8kxe0zJzvDUo_hFqKOxLhpZwrg0Pr5OAtIWrn-c1R0edRGC4j_KsePIki0p2U7Mr8voPpX_k9v5JLNKfIvL7eRwNgz06QrLgAgM-qIBjbKoA3l_l-PnWuq7dJYsA8kxw%3Dw86-h114-k-no!7i3000!8i4000" target="_blank" rel="noopener noreferrer"> -->
-        <img src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4no_ivr82m8kxe0zJzvDUo_hFqKOxLhpZwrg0Pr5OAtIWrn-c1R0edRGC4j_KsePIki0p2U7Mr8voPpX_k9v5JLNKfIvL7eRwNgz06QrLgAgM-qIBjbKoA3l_l-PnWuq7dJYsA8kxw=w86-h114-k-no" alt="Freshlyone Hypermarket" class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center text-white p-4">
-          <h3 class="text-lg font-semibold mb-2">Freshlyone Hypermarket</h3>
-          <p class="text-sm text-center">13/428/A, Kozhikode Road, Chullikkamparamb, Cheruvadi, Kozhikode, Kerala 673661</p>
-        </div>
-      </a>
-    </div>
+<!-- Header -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <img src="images/Pasted image-bg remove.png" alt="SKOMBY Logo" class="h-14 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300">
+    <nav>
+      <ul class="flex space-x-4 text-lg font-medium">
+        <li><a href="#home" class="hover:text-[var(--color-skomby-orange)]">Home</a></li>
+        <li><a href="#about" class="hover:text-[var(--color-skomby-orange)]">About</a></li>
+        <li><a href="#flavors" class="hover:text-[var(--color-skomby-orange)]">Flavors</a></li>
+        <li><a href="#contact" class="hover:text-[var(--color-skomby-orange)]">Contact</a></li>
+      </ul>
+    </nav>
   </div>
-</div>
+</header>
 
+<!-- Hero Section -->
+<section id="home" class="relative h-[80vh] md:h-screen bg-cover bg-center flex items-center justify-center text-white" style="background-image: url('images/imagecompress.png');">
+  <div class="absolute inset-0 bg-black opacity-40"></div>
+  <div class="relative z-10 text-center px-4" data-aos="fade-up">
+    <h1 class="text-4xl md:text-6xl font-serif-skomby font-bold mb-4" style="color: var(--color-skomby-yellow);">
+      Discover the Refreshing Taste of SKOMBY
+    </h1>
+    <p class="text-lg md:text-2xl mb-6 text-white">Naturally Fermented, Deliciously Flavored Kombucha from Kerala</p>
+    <a href="#flavors" class="bg-[var(--color-skomby-orange)] text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-opacity-90 transition">
+      Explore Flavors
+    </a>
+  </div>
+</section>
 
-
-
-
-
-        </section>
-
-        <section class="py-20 px-4">
-  <div class="container mx-auto text-center">
-    <h2 class="text-4xl font-serif-skomby text-skomby-green mb-8 font-semibold">Get in Touch</h2>
-    <p class="text-lg mb-8 max-w-2xl mx-auto">
-      Have questions or interested in stocking SKOMBY? We'd love to hear from you!
-    </p>
-    <div class="flex justify-center space-x-6">
-      <!-- Gmail -->
-      <a href="mailto:contactskomby@gmail.com" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Gmail" class="w-12 h-12 hover:scale-110 transition-transform duration-300">
-      </a>
-      <!-- WhatsApp -->
-      <a href="https://wa.me/7511151418" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" class="w-12 h-12 hover:scale-110 transition-transform duration-300">
-      </a>
-      <!-- Instagram -->
-      <a href="https://ig.me/m/skomby" target="_blank" rel="noopener noreferrer">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" class="w-12 h-12 hover:scale-110 transition-transform duration-300">
+<!-- About Section -->
+<section id="about" class="py-16 px-4 bg-[var(--color-skomby-background)]">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <!-- Image -->
+    <div data-aos="fade-right">
+      <img
+        src="https://placehold.co/600x400/4F6D5A/F8F0E3?text=Kerala+Craft"
+        alt="About SKOMBY"
+        class="rounded-lg shadow-lg mx-auto"
+      />
+    </div>
+    <!-- Text -->
+    <div data-aos="fade-left">
+      <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-green)] mb-6">
+        Our Story
+      </h2>
+      <p class="text-lg mb-6">
+        Skomby is a handcrafted health‑focused kombucha brewed with care in the heart of the Malabar region of Kerala, India.
+      </p>
+      <p class="text-lg mb-6">
+        We offer a refreshing, nourishing drink by combining ancient fermentation techniques with locally sourced ingredients, bringing you the authentic taste and goodness of Kerala in every bottle.
+      </p>
+      <a
+        href="#contact"
+        class="inline-block border border-[var(--color-skomby-purple)] text-[var(--color-skomby-purple)] py-3 px-8 rounded-full text-lg font-semibold hover:bg-[var(--color-skomby-purple)] hover:text-white transition"
+      >
+        Learn More
       </a>
     </div>
   </div>
 </section>
 
+<section id="flavors" class="py-16 px-4">
+  <div class="max-w-7xl mx-auto text-center">
+    <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-purple)] mb-12" data-aos="fade-up">
+      Our Natural Flavors
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
-        <div id="back-to-top" class="hidden">
-            <i class="fas fa-chevron-up"></i>
+      <!-- Zesty Orange -->
+      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in">
+        <img src="https://github.com/afsalcprahman/SKOMBY-repo/blob/main/images/zesty%20orange%20new.jpeg?raw=true" alt="Zesty Orange" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+          <h3 class="text-xl font-semibold mb-2">Zesty Orange</h3>
+          <p class="text-sm">A bright and tangy burst of citrus, perfectly balanced with the natural fizz of kombucha. Made with real oranges.</p>
         </div>
+      </div>
 
-    </main>
-
-    <footer class="bg-skomby-text text-white py-8 px-4">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2025 SKOMBY . All rights reserved.</p>
-            <div class="flex justify-center space-x-4 mt-4 text-2xl">
-                <a href="#" class="text-white hover:text-skomby-orange transition duration-300"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-white hover:text-skomby-orange transition duration-300"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="text-white hover:text-skomby-orange transition duration-300"><i class="fab fa-twitter"></i></a>
-            </div>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+      <!-- Butterfly Pea -->
+      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in">
+        <img src="https://github.com/afsalcprahman/SKOMBY-repo/blob/main/images/butterfly%20pea%20new.png?raw=true" alt="Butterfly Pea" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+          <h3 class="text-xl font-semibold mb-2">Butterfly Pea Infusion</h3>
+          <p class="text-sm">A delightful blend of mixed berries, offering a sweet and slightly tart flavor that's incredibly refreshing.</p>
         </div>
-    </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script>
-        AOS.init();
-        // Back-to-top button functionality
-        const backToTop = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('show');
-            } else {
-                backToTop.classList.remove('show');
-            }
-        });
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
+      </div>
+
+      <!-- Passion Delight -->
+      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in">
+        <img src="https://github.com/afsalcprahman/SKOMBY-repo/blob/main/images/passion%20delight%20new.jpeg?raw=true" alt="Passion Delight" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+          <h3 class="text-xl font-semibold mb-2">Passion Delight</h3>
+          <p class="text-sm">A warming and invigorating flavor with a kick of natural ginger, perfect for a refreshing pick-me-up.</p>
+        </div>
+      </div>
+
+      <!-- Tropical Mango -->
+      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in">
+        <img src="https://github.com/afsalcprahman/SKOMBY-repo/blob/main/images/Tropical%20mango%20new.jpeg?raw=true" alt="Tropical Mango" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
+          <h3 class="text-xl font-semibold mb-2">Tropical Mango</h3>
+          <p class="text-sm">A taste of the tropics! Sweet and juicy mango perfectly complements the refreshing fizz of our kombucha.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Contact / Stockists Section -->
+<section id="contact" class="py-20 px-4 bg-[var(--color-skomby-background)]">
+  <div class="max-w-7xl mx-auto text-center">
+    <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-orange)] mb-8">
+      Find SKOMBY Near You
+    </h2>
+    <p class="text-lg mb-8 max-w-2xl mx-auto">
+      SKOMBY is available at select retail locations. Find your nearest store and grab yours today!
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      
+      <!-- Mamatha Grand City -->
+      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg">
+        <a href="https://mamatharestaurant.com" target="_blank" rel="noopener">
+          <img
+            src="https://mamatharestaurant.com/wp-content/uploads/2024/12/7K04ED_1690456900233_0.png"
+            alt="Mamatha Grand City"
+            class="w-full h-full object-cover"
+          >
+          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
+            <h3 class="text-lg font-semibold mb-2">Mamatha Grand City</h3>
+            <p class="text-sm text-center">
+              Areekode Road, Edavannappara, Malappuram, Kerala 673645
+            </p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Mall of Mukkam -->
+      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg">
+        <a href="https://www.mallofmukkam.com" target="_blank" rel="noopener">
+          <img
+            src="https://www.mallofmukkam.com/images/shops/freshday.jpg"
+            alt="Mall of Mukkam"
+            class="w-full h-full object-cover"
+          >
+          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
+            <h3 class="text-lg font-semibold mb-2">Fresh Day, Mall of Mukkam</h3>
+            <p class="text-sm text-center">
+              Edavanna - Koyilandy State Highway, Opposite Bypass Road, Mukkam, Kozhikode, Kerala 673602
+            </p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Family Hypermart -->
+      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg">
+        <!-- No link wrapper here originally -->
+        <img
+          src="https://lh3.googleusercontent.com/p/AF1QipOWQut4ZpDuW-2PizgOwOxYL2pucf05i6TkiKc=w203-h270-k-no"
+          alt="Family Hypermart"
+          class="w-full h-full object-cover"
+        >
+        <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
+          <h3 class="text-lg font-semibold mb-2">Family Hypermart</h3>
+          <p class="text-sm text-center">Mukkam, Kozhikode, Kerala</p>
+        </div>
+      </div>
+
+      <!-- Freshlyone Hypermarket -->
+      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg">
+        <img
+          src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4no_ivr82m8kxe0zJzvDUo_hFqKOxLhpZwrg0Pr5OAtIWrn-c1R0edRGC4j_KsePIki0p2U7Mr8voPpX_k9v5JLNKfIvL7eRwNgz06QrLgAgM-qIBjbKoA3l_l-PnWuq7dJYsA8kxw=w86-h114-k-no"
+          alt="Freshlyone Hypermarket"
+          class="w-full h-full object-cover"
+        >
+        <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
+          <h3 class="text-lg font-semibold mb-2">Freshlyone Hypermarket</h3>
+          <p class="text-sm text-center">
+            13/428/A, Kozhikode Road, Chullikkamparamb, Cheruvadi, Kozhikode, Kerala 673661
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Get in Touch -->
+    <div class="mt-12 text-center">
+      <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-green)] mb-8">
+        Get in Touch
+      </h2>
+      <p class="text-lg mb-8 max-w-2xl mx-auto">
+        Have questions or interested in stocking SKOMBY? We'd love to hear from you!
+      </p>
+      <div class="flex justify-center space-x-6">
+        <a href="mailto:contactskomby@gmail.com" class="hover:scale-110 transition-transform">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+            alt="Gmail"
+            class="w-12 h-12"
+          >
+        </a>
+        <a href="https://wa.me/7511151418" class="hover:scale-110 transition-transform">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+            alt="WhatsApp"
+            class="w-12 h-12"
+          >
+        </a>
+        <a href="https://ig.me/m/skomby" class="hover:scale-110 transition-transform">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
+            alt="Instagram"
+            class="w-12 h-12"
+          >
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer class="bg-[var(--color-skomby-text)] text-white py-8 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <p>&copy; 2025 SKOMBY. All rights reserved.</p>
+      <div class="flex justify-center space-x-4 mt-4 text-2xl">
+        <a href="#" class="hover:text-[var(--color-skomby-orange)]">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="#" class="hover:text-[var(--color-skomby-orange)]">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="hover:text-[var(--color-skomby-orange)]">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      >
+    </div>
+  </footer>
+
+  <!-- Back-to-Top Button -->
+  <div id="back-to-top" class="hidden">
+    &#8679;
+  </div>
+
+  <!-- AOS Animation & Back-to-Top Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      once: true
+    });
+
+    // Back-to-top button functionality
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
