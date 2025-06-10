@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SKOMBY Kombucha</title>
+  <title>SKOMBY - Handcrafted Kombucha from Kerala</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     :root {
       --color-skomby-orange: #E5735A;
@@ -31,6 +32,14 @@
       scroll-behavior: smooth;
     }
 
+    /* Sticky Header Styling */
+    .header-scrolled {
+        backdrop-filter: blur(8px);
+        background-color: rgba(248, 240, 227, 0.8); /* --color-skomby-background with opacity */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Back-to-Top Button */
     #back-to-top {
       position: fixed;
       bottom: 20px;
@@ -48,32 +57,73 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 1000; /* Ensure it's above other content */
     }
 
     #back-to-top.show {
       opacity: 1;
       visibility: visible;
     }
+
+    /* Mobile Menu Overlay */
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 50; /* Below the actual menu */
+        display: none;
+    }
+
+    .mobile-menu-overlay.active {
+        display: block;
+    }
   </style>
 </head>
 <body class="bg-[var(--color-skomby-background)] text-[var(--color-skomby-text)]">
 
-<!-- Header -->
-<header class="bg-white shadow-md sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-    <img src="images/Pasted image-bg remove.png" alt="SKOMBY Logo" class="h-14 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300">
-    <nav>
+<header id="header" class="fixed top-0 left-0 w-full z-50 py-4 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+    <a href="#home">
+        <img src="images/Pasted image-bg remove.png" alt="SKOMBY Logo" class="h-14 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300">
+    </a>
+    <nav class="hidden md:block">
       <ul class="flex space-x-4 text-lg font-medium">
-        <li><a href="#home" class="hover:text-[var(--color-skomby-orange)]">Home</a></li>
-        <li><a href="#about" class="hover:text-[var(--color-skomby-orange)]">About</a></li>
-        <li><a href="#flavors" class="hover:text-[var(--color-skomby-orange)]">Flavors</a></li>
-        <li><a href="#contact" class="hover:text-[var(--color-skomby-orange)]">Contact</a></li>
+        <li><a href="#home" class="hover:text-[var(--color-skomby-orange)] transition duration-300">Home</a></li>
+        <li><a href="#about" class="hover:text-[var(--color-skomby-orange)] transition duration-300">About</a></li>
+        <li><a href="#flavors" class="hover:text-[var(--color-skomby-orange)] transition duration-300">Flavors</a></li>
+        <li><a href="#contact" class="hover:text-[var(--color-skomby-orange)] transition duration-300">Contact</a></li>
       </ul>
     </nav>
+    <div class="md:hidden">
+        <button id="mobile-menu-button" class="text-[var(--color-skomby-text)] focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+    </div>
   </div>
+
+  <div id="mobile-nav-links" class="fixed inset-y-0 right-0 w-64 bg-[var(--color-skomby-background)] z-50 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden">
+      <div class="flex justify-end p-4">
+          <button id="close-mobile-menu" class="text-[var(--color-skomby-text)] focus:outline-none">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+          </button>
+      </div>
+      <ul class="flex flex-col p-4 text-lg font-medium">
+          <li><a href="#home" class="block py-2 px-4 hover:bg-gray-200" onclick="closeMobileMenu()">Home</a></li>
+          <li><a href="#about" class="block py-2 px-4 hover:bg-gray-200" onclick="closeMobileMenu()">About</a></li>
+          <li><a href="#flavors" class="block py-2 px-4 hover:bg-gray-200" onclick="closeMobileMenu()">Flavors</a></li>
+          <li><a href="#contact" class="block py-2 px-4 hover:bg-gray-200" onclick="closeMobileMenu()">Contact</a></li>
+      </ul>
+  </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
 </header>
 
-<!-- Hero Section -->
 <section id="home" class="relative h-[80vh] md:h-screen bg-cover bg-center flex items-center justify-center text-white" style="background-image: url('images/imagecompress.png');">
   <div class="absolute inset-0 bg-black opacity-40"></div>
   <div class="relative z-10 text-center px-4" data-aos="fade-up">
@@ -87,10 +137,8 @@
   </div>
 </section>
 
-<!-- About Section -->
 <section id="about" class="py-16 px-4 bg-[var(--color-skomby-background)]">
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-    <!-- Image -->
     <div data-aos="fade-right">
       <img
         src="https://placehold.co/600x400/4F6D5A/F8F0E3?text=Kerala+Craft"
@@ -98,7 +146,6 @@
         class="rounded-lg shadow-lg mx-auto"
       />
     </div>
-    <!-- Text -->
     <div data-aos="fade-left">
       <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-green)] mb-6">
         Our Story
@@ -126,39 +173,35 @@
     </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
-      <!-- Zesty Orange -->
       <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in">
-        <img src="https://github.com/afsalcprahman/SKOMBY-repo/blob/main/images/zesty%20orange%20new.jpeg?raw=true" alt="Zesty Orange" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+        <img src="https://raw.githubusercontent.com/afsalcprahman/SKOMBY-repo/refs/heads/main/images/1.webp?raw=true" alt="Zesty Orange Kombucha" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
         <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
           <h3 class="text-xl font-semibold mb-2">Zesty Orange</h3>
-          <p class="text-sm">A bright and tangy burst of citrus, perfectly balanced with the natural fizz of kombucha. Made with real oranges.</p>
+          <p class="text-sm">A bright and tangy burst of citrus, perfectly balanced with the natural fizz of kombucha. Crafted with fresh, real oranges for a vibrant taste.</p>
         </div>
       </div>
 
-      <!-- Butterfly Pea -->
-      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in">
-        <img src="https://github.com/afsalcprahman/SKOMBY-repo/blob/main/images/butterfly%20pea%20new.png?raw=true" alt="Butterfly Pea" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="100">
+        <img src="https://raw.githubusercontent.com/afsalcprahman/SKOMBY-repo/refs/heads/main/images/2.webp?raw=true" alt="Ginger Zest Kombucha" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
         <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
-          <h3 class="text-xl font-semibold mb-2">Butterfly Pea Infusion</h3>
-          <p class="text-sm">A delightful blend of mixed berries, offering a sweet and slightly tart flavor that's incredibly refreshing.</p>
+          <h3 class="text-xl font-semibold mb-2">Ginger Zest</h3>
+          <p class="text-sm">A warming and invigorating flavor with a delightful kick of natural ginger, perfect for a spicy-sweet refreshment.</p>
         </div>
       </div>
 
-      <!-- Passion Delight -->
-      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in">
-        <img src="https://github.com/afsalcprahman/SKOMBY-repo/blob/main/images/passion%20delight%20new.jpeg?raw=true" alt="Passion Delight" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="200">
+        <img src="https://raw.githubusercontent.com/afsalcprahman/SKOMBY-repo/refs/heads/main/images/3.webp?raw=true" alt="Berry Bliss Kombucha" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
         <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
-          <h3 class="text-xl font-semibold mb-2">Passion Delight</h3>
-          <p class="text-sm">A warming and invigorating flavor with a kick of natural ginger, perfect for a refreshing pick-me-up.</p>
+          <h3 class="text-xl font-semibold mb-2">Berry Bliss</h3>
+          <p class="text-sm">A delightful blend of mixed berries, offering a sweet and slightly tart explosion of fruity goodness.</p>
         </div>
       </div>
 
-      <!-- Tropical Mango -->
-      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in">
-        <img src="https://github.com/afsalcprahman/SKOMBY-repo/blob/main/images/Tropical%20mango%20new.jpeg?raw=true" alt="Tropical Mango" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="300">
+        <img src="https://raw.githubusercontent.com/afsalcprahman/SKOMBY-repo/refs/heads/main/images/4.webp?raw=true" alt="Tropical Mango Kombucha" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
         <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
           <h3 class="text-xl font-semibold mb-2">Tropical Mango</h3>
-          <p class="text-sm">A taste of the tropics! Sweet and juicy mango perfectly complements the refreshing fizz of our kombucha.</p>
+          <p class="text-sm">A taste of the tropics! Sweet and juicy mango perfectly complements the refreshing fizz of our kombucha, a true Kerala delight.</p>
         </div>
       </div>
 
@@ -167,7 +210,6 @@
 </section>
 
 
-<!-- Contact / Stockists Section -->
 <section id="contact" class="py-20 px-4 bg-[var(--color-skomby-background)]">
   <div class="max-w-7xl mx-auto text-center">
     <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-orange)] mb-8">
@@ -178,9 +220,8 @@
     </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
       
-      <!-- Mamatha Grand City -->
-      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg">
-        <a href="https://mamatharestaurant.com" target="_blank" rel="noopener">
+      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="0">
+        <a href="https://maps.app.goo.gl/zn1MQtGYeAMkvtDs8" target="_blank" rel="noopener">
           <img
             src="https://mamatharestaurant.com/wp-content/uploads/2024/12/7K04ED_1690456900233_0.png"
             alt="Mamatha Grand City"
@@ -195,9 +236,8 @@
         </a>
       </div>
 
-      <!-- Mall of Mukkam -->
-      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg">
-        <a href="https://www.mallofmukkam.com" target="_blank" rel="noopener">
+      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
+        <a href="https://maps.app.goo.gl/cRS9TQyo2aa3Pvbh6" target="_blank" rel="noopener">
           <img
             src="https://www.mallofmukkam.com/images/shops/freshday.jpg"
             alt="Mall of Mukkam"
@@ -212,38 +252,36 @@
         </a>
       </div>
 
-      <!-- Family Hypermart -->
-      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg">
-        <!-- No link wrapper here originally -->
-        <img
-          src="https://lh3.googleusercontent.com/p/AF1QipOWQut4ZpDuW-2PizgOwOxYL2pucf05i6TkiKc=w203-h270-k-no"
-          alt="Family Hypermart"
-          class="w-full h-full object-cover"
-        >
-        <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
-          <h3 class="text-lg font-semibold mb-2">Family Hypermart</h3>
-          <p class="text-sm text-center">Mukkam, Kozhikode, Kerala</p>
-        </div>
+      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
+        <a href="https://maps.app.goo.gl/6JGr8LrGGYsxMPtQ9" target="_blank" rel="noopener"> <img
+            src="https://via.placeholder.com/400x300/4A3B31/F8F0E3?text=Family+Hypermart"
+            alt="Family Hypermart"
+            class="w-full h-full object-cover"
+            >
+            <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
+            <h3 class="text-lg font-semibold mb-2">Family Hypermart</h3>
+            <p class="text-sm text-center">Mukkam, Kozhikode, Kerala</p>
+            </div>
+        </a>
       </div>
 
-      <!-- Freshlyone Hypermarket -->
-      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg">
-        <img
-          src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4no_ivr82m8kxe0zJzvDUo_hFqKOxLhpZwrg0Pr5OAtIWrn-c1R0edRGC4j_KsePIki0p2U7Mr8voPpX_k9v5JLNKfIvL7eRwNgz06QrLgAgM-qIBjbKoA3l_l-PnWuq7dJYsA8kxw=w86-h114-k-no"
-          alt="Freshlyone Hypermarket"
-          class="w-full h-full object-cover"
-        >
-        <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
-          <h3 class="text-lg font-semibold mb-2">Freshlyone Hypermarket</h3>
-          <p class="text-sm text-center">
-            13/428/A, Kozhikode Road, Chullikkamparamb, Cheruvadi, Kozhikode, Kerala 673661
-          </p>
-        </div>
+      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
+        <a href="https://maps.app.goo.gl/YFTGKAyfAzeEduvN7" target="_blank" rel="noopener"> <img
+            src="https://via.placeholder.com/400x300/E5735A/F8F0E3?text=Freshlyone+Hypermarket"
+            alt="Freshlyone Hypermarket"
+            class="w-full h-full object-cover"
+            >
+            <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
+            <h3 class="text-lg font-semibold mb-2">Freshlyone Hypermarket</h3>
+            <p class="text-sm text-center">
+                13/428/A, Kozhikode Road, Chullikkamparamb, Cheruvadi, Kozhikode, Kerala 673661
+            </p>
+            </div>
+        </a>
       </div>
 
     </div>
 
-    <!-- Get in Touch -->
     <div class="mt-12 text-center">
       <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-green)] mb-8">
         Get in Touch
@@ -255,21 +293,20 @@
         <a href="mailto:contactskomby@gmail.com" class="hover:scale-110 transition-transform">
           <img
             src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
-            alt="Gmail"
+            alt="Gmail icon"
             class="w-12 h-12"
           >
         </a>
-        <a href="https://wa.me/7511151418" class="hover:scale-110 transition-transform">
+        <a href="https://wa.me/7511151418" target="_blank" class="hover:scale-110 transition-transform">
           <img
             src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
-            alt="WhatsApp"
+            alt="WhatsApp icon"
             class="w-12 h-12"
           >
         </a>
-        <a href="https://ig.me/m/skomby" class="hover:scale-110 transition-transform">
-          <img
+        <a href="https://www.instagram.com/skomby" target="_blank" class="hover:scale-110 transition-transform"> <img
             src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
-            alt="Instagram"
+            alt="Instagram icon"
             class="w-12 h-12"
           >
         </a>
@@ -279,34 +316,27 @@
 </section>
 
 
-  <!-- Footer -->
   <footer class="bg-[var(--color-skomby-text)] text-white py-8 px-4">
     <div class="max-w-7xl mx-auto text-center">
-      <p>&copy; 2025 SKOMBY. All rights reserved.</p>
+      <p>© 2025 SKOMBY. All rights reserved.</p>
       <div class="flex justify-center space-x-4 mt-4 text-2xl">
-        <a href="#" class="hover:text-[var(--color-skomby-orange)]">
+        <a href="https://www.instagram.com/skomby" target="_blank" class="hover:text-[var(--color-skomby-orange)] transition duration-300">
           <i class="fab fa-instagram"></i>
         </a>
-        <a href="#" class="hover:text-[var(--color-skomby-orange)]">
+        <a href="https://www.facebook.com/skomby" target="_blank" class="hover:text-[var(--color-skomby-orange)] transition duration-300">
           <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="#" class="hover:text-[var(--color-skomby-orange)]">
+        <a href="https://twitter.com/skomby" target="_blank" class="hover:text-[var(--color-skomby-orange)] transition duration-300">
           <i class="fab fa-twitter"></i>
         </a>
       </div>
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      >
     </div>
   </footer>
 
-  <!-- Back-to-Top Button -->
   <div id="back-to-top" class="hidden">
-    &#8679;
+    <i class="fas fa-arrow-up"></i>
   </div>
 
-  <!-- AOS Animation & Back-to-Top Script -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     // Initialize AOS
@@ -315,17 +345,55 @@
       once: true
     });
 
-    // Back-to-top button functionality
-    const backToTop = document.getElementById('back-to-top');
+    // Header Sticky and Scroll-based blur
+    const header = document.getElementById('header');
+    const backToTopButton = document.getElementById('back-to-top');
+
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTop.classList.add('show');
-      } else {
-        backToTop.classList.remove('show');
-      }
+        if (window.scrollY > 50) { // Adjust scroll threshold as needed
+            header.classList.add('header-scrolled');
+            backToTopButton.classList.add('show');
+        } else {
+            header.classList.remove('header-scrolled');
+            backToTopButton.classList.remove('show');
+        }
     });
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Back to top functionality
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+    const mobileNavLinks = document.getElementById('mobile-nav-links');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+    function openMobileMenu() {
+        mobileNavLinks.classList.remove('translate-x-full');
+        mobileNavLinks.classList.add('translate-x-0');
+        mobileMenuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+    }
+
+    function closeMobileMenu() {
+        mobileNavLinks.classList.remove('translate-x-0');
+        mobileNavLinks.classList.add('translate-x-full');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    mobileMenuButton.addEventListener('click', openMobileMenu);
+    closeMobileMenuButton.addEventListener('click', closeMobileMenu);
+    mobileMenuOverlay.addEventListener('click', closeMobileMenu); // Close when clicking overlay
+
+    // Close mobile menu when a link is clicked
+    document.querySelectorAll('#mobile-nav-links a').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
     });
   </script>
 </body>
