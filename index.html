@@ -1,400 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SKOMBY - Handcrafted Kombucha from Kerala</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>SKOMBY - Kombucha</title>
+
+  <!-- Tailwind (via CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- AOS (Animate-On-Scroll) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"/>
+
   <style>
-    :root {
-      --color-skomby-orange: #E5735A;
-      --color-skomby-background: #F8F0E3;
-      --color-skomby-text: #4A3B31;
-      --color-skomby-purple: #4A3B6F;
-      --color-skomby-green: #4F6D5A;
-      --color-skomby-yellow: #b3a034;
+    :root{
+      --sko-bg:#fefbe6;
+      --sko-text:#192618;
+      --sko-accent:#d6ab43;
     }
+    /* Tailwind overrides */
+    body{font-family:'Montserrat',sans-serif;background:var(--sko-bg);color:var(--sko-text);}
+    h1,h2,h3,h4,h5,h6{font-family:'Poppins',sans-serif;}
+    /* Smooth scroll */
+    html{scroll-behavior:smooth;}
+    /* Scrollbar subtle toning */
+    ::-webkit-scrollbar{width:6px;}
+    ::-webkit-scrollbar-thumb{background:var(--sko-accent);border-radius:3px;}
+    /* Hero parallax */
+    .hero-bg{background-attachment:fixed;background-size:cover;background-position:center;}
+    /* Glass card */
+    .glass{backdrop-filter:blur(8px) saturate(150%);background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);}
+    /* Floating action button */
+    #fab{position:fixed;bottom:24px;right:24px;height:48px;width:48px;border-radius:50%;background:var(--sko-accent);color:#fff;
+         display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .3s;}
+    #fab:hover{transform:scale(1.1) rotate(10deg);}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--color-skomby-text);
-      background-color: var(--color-skomby-background);
-    }
+/* Kombucha liquid background with gentle movement */
+@keyframes kombuchaFlow {
+  0%, 100% { 
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  25% { 
+    background-position: 25% 40%;
+    filter: hue-rotate(5deg) brightness(1.05);
+  }
+  50% { 
+    background-position: 100% 60%;
+    filter: hue-rotate(-3deg) brightness(0.95);
+  }
+  75% { 
+    background-position: 75% 45%;
+    filter: hue-rotate(2deg) brightness(1.02);
+  }
+}
 
-    .font-serif-skomby {
-      font-family: 'Cormorant Garamond', serif;
-    }
+/* Fermented kombucha-inspired background */
+.kombucha-fizz {
+  background: linear-gradient(120deg,
+              #D0CE9B 0%,   /* new color */
+              #6D7D4C 33%, /* classic forest green */
+              #D6AB43 66%, /* lighter moss */
+              #D6AB43 100%); /* new color */
+  background-size: 200% 200%;
+  animation: forestFlow 12s ease-in-out infinite;
+}
 
-    html {
-      scroll-behavior: smooth;
-    }
+/* Rising bubble animations */
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+    transform: translateY(90vh) scale(0.3);
+  }
+  90% {
+    opacity: 0.8;
+    transform: translateY(-10vh) scale(1);
+  }
+  100% {
+    transform: translateY(-20vh) scale(0);
+    opacity: 0;
+  }
+}
 
-    /* Sticky Header Styling */
-    .header-scrolled {
-        backdrop-filter: blur(8px);
-        background-color: rgba(248, 240, 227, 0.8); /* --color-skomby-background with opacity */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+@keyframes bubbleFloat {
+  0%, 100% {
+    transform: translateY(100vh) translateX(0px) scale(0);
+  }
+  25% {
+    transform: translateY(75vh) translateX(-10px) scale(0.4);
+  }
+  50% {
+    transform: translateY(50vh) translateX(5px) scale(0.7);
+  }
+  75% {
+    transform: translateY(25vh) translateX(-5px) scale(0.9);
+  }
+}
 
-    /* Back-to-Top Button */
-    #back-to-top {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: var(--color-skomby-orange);
-      color: white;
-      border-radius: 9999px;
-      width: 50px;
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      z-index: 1000; /* Ensure it's above other content */
-    }
+/* Individual bubble styles */
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, 
+              rgba(255,255,255,0.4), 
+              rgba(255,255,255,0.1));
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+  pointer-events: none;
+}
 
-    #back-to-top.show {
-      opacity: 1;
-      visibility: visible;
-    }
+.bubble-1 {
+  width: 8px; height: 8px;
+  left: 10%;
+  animation: bubbleRise 4s infinite ease-in-out;
+  animation-delay: 0s;
+}
 
-    /* Mobile Menu Overlay */
-    .mobile-menu-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7);
-        z-index: 50; /* Below the actual menu */
-        display: none;
-    }
+.bubble-2 {
+  width: 12px; height: 12px;
+  left: 25%;
+  animation: bubbleFloat 6s infinite ease-in-out;
+  animation-delay: 1.5s;
+}
 
-    .mobile-menu-overlay.active {
-        display: block;
-    }
-  </style>
+.bubble-3 {
+  width: 6px; height: 6px;
+  left: 40%;
+  animation: bubbleRise 5s infinite ease-in-out;
+  animation-delay: 2s;
+}
+
+.bubble-4 {
+  width: 10px; height: 10px;
+  left: 60%;
+  animation: bubbleFloat 7s infinite ease-in-out;
+  animation-delay: 0.8s;
+}
+
+.bubble-5 {
+  width: 14px; height: 14px;
+  left: 75%;
+  animation: bubbleRise 5.5s infinite ease-in-out;
+  animation-delay: 3s;
+}
+
+.bubble-6 {
+  width: 7px; height: 7px;
+  left: 85%;
+  animation: bubbleFloat 4.5s infinite ease-in-out;
+  animation-delay: 1s;
+}
+
+.bubble-7 {
+  width: 9px; height: 9px;
+  left: 15%;
+  animation: bubbleRise 6.2s infinite ease-in-out;
+  animation-delay: 2.8s;
+}
+
+.bubble-8 {
+  width: 11px; height: 11px;
+  left: 55%;
+  animation: bubbleFloat 5.8s infinite ease-in-out;
+  animation-delay: 4s;
+}
+
+/* Enhanced glass effect for better contrast against fizzing background */
+.glass {
+  backdrop-filter: blur(12px) saturate(180%);
+  background: rgba(254, 251, 230, 0.25);
+  border: 1px solid rgba(254, 251, 230, 0.4);
+  box-shadow: 0 8px 32px rgba(25, 38, 24, 0.15);
+}
+
+ 
+ </style>
 </head>
-<body class="bg-[var(--color-skomby-background)] text-[var(--color-skomby-text)]">
+<body>
 
-<header id="header" class="fixed top-0 left-0 w-full z-50 py-4 transition-all duration-300">
-  <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-    <a href="#home">
-        <img src="images/Pasted image-bg remove.png" alt="SKOMBY Logo" class="h-14 w-auto opacity-80 hover:opacity-100 transition-opacity duration-300">
-    </a>
-    <nav class="hidden md:block">
-      <ul class="flex space-x-4 text-lg font-medium">
-        <li><a href="#home" class="hover:text-[var(--color-skomby-orange)] transition duration-300">Home</a></li>
-        <li><a href="#about" class="hover:text-[var(--color-skomby-orange)] transition duration-300">About</a></li>
-        <li><a href="#flavors" class="hover:text-[var(--color-skomby-orange)] transition duration-300">Flavors</a></li>
-        <li><a href="#contact" class="hover:text-[var(--color-skomby-orange)] transition duration-300">Contact</a></li>
-      </ul>
+<!-- Header -->
+<header class="w-full fixed top-0 left-0 bg-[#192618]/90 backdrop-blur-md z-50">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+    <!-- Logo -->
+    <img src="/home/test/SKOMBY/images/SKOMBY-LOGO.png"
+         alt="SKOMBY Logo"
+         class="h-14 w-auto transition-opacity duration-300">
+
+    <!-- Desktop navigation -->
+    <nav class="hidden md:flex space-x-8 text-sm font-medium">
+      <a href="#about" class="text-[#d4ab43] hover:text-white transition-colors duration-200">About</a>
+      <a href="#flavors" class="text-[#d4ab43] hover:text-white transition-colors duration-200">Flavors</a>
+      <a href="#contact" class="text-[#d4ab43] hover:text-white transition-colors duration-200">Contact</a>
     </nav>
-    <div class="md:hidden">
-        <button id="mobile-menu-button" class="text-[var(--color-skomby-text)] focus:outline-none">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
-    </div>
+
+    <!-- Mobile menu button -->
+    <button id="menuBtn" class="md:hidden focus:outline-none">
+      <svg class="w-6 h-6 text-[#d4ab43]" fill="none" stroke="currentColor" stroke-width="2"
+           viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
   </div>
 
-  <div id="mobile-nav-links" class="fixed inset-y-0 right-0 w-64 bg-[var(--color-skomby-background)] z-[100] transform translate-x-full transition-transform duration-300 ease-in-out md:hidden shadow-lg">
-      <div class="flex justify-end p-4">
-          <button id="close-mobile-menu" class="text-[var(--color-skomby-text)] focus:outline-none">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-          </button>
-      </div>
-      <ul class="flex flex-col p-4 text-lg font-medium">
-          <li><a href="#home" class="block py-2 px-4 hover:bg-gray-200" onclick="closeMobileMenu()">Home</a></li>
-          <li><a href="#about" class="block py-2 px-4 hover:bg-gray-200" onclick="closeMobileMenu()">About</a></li>
-          <li><a href="#flavors" class="block py-2 px-4 hover:bg-gray-200" onclick="closeMobileMenu()">Flavors</a></li>
-          <li><a href="#contact" class="block py-2 px-4 hover:bg-gray-200" onclick="closeMobileMenu()">Contact</a></li>
-      </ul>
+  <!-- Mobile dropdown menu -->
+  <div id="mobileNav" class="hidden flex-col absolute top-[3.75rem] right-0 bg-[#192618] w-48 py-3 shadow-lg rounded-bl-xl md:hidden z-50">
+    <a href="#about" class="px-5 py-2 text-right text-[#d4ab43] font-semibold hover:text-white transition-colors duration-200">About</a>
+    <a href="#flavors" class="px-5 py-2 text-right text-[#d4ab43] font-semibold hover:text-white transition-colors duration-200">Flavors</a>
+    <a href="#contact" class="px-5 py-2 text-right text-[#d4ab43] font-semibold hover:text-white transition-colors duration-200">Contact</a>
   </div>
-  <div id="mobile-menu-overlay" class="mobile-menu-overlay bg-black bg-opacity-50"></div>
 </header>
 
-<section id="home" class="relative h-[80vh] md:h-screen bg-cover bg-center flex items-center justify-center text-white" style="background-image: url('images/imagecompress.png');">
-  <div class="absolute inset-0 bg-black opacity-40"></div>
-  <div class="relative z-10 text-center px-4" data-aos="fade-up">
-    <h1 class="text-4xl md:text-6xl font-serif-skomby font-bold mb-4" style="color: var(--color-skomby-yellow);">
-      Discover the Refreshing Taste of SKOMBY
-    </h1>
-    <p class="text-lg md:text-2xl mb-6 text-white">Naturally Fermented, Deliciously Flavored Kombucha from Kerala</p>
-    <a href="#flavors" class="bg-[var(--color-skomby-orange)] text-white py-3 px-8 rounded-full text-lg font-semibold hover:bg-opacity-90 transition">
-      Explore Flavors
-    </a>
+
+
+<!-- Hero -->
+<section id="home"
+         class="relative h-screen flex flex-col justify-center items-center text-center overflow-hidden">
+
+  <!-- Fizzing kombucha background -->
+  <div class="absolute inset-0 kombucha-fizz z-0"></div>
+  
+  <!-- Floating bubbles -->
+  <div class="absolute inset-0 z-5">
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+    <div class="bubble bubble-5"></div>
+    <div class="bubble bubble-6"></div>
+    <div class="bubble bubble-7"></div>
+    <div class="bubble bubble-8"></div>
   </div>
+
+<div class="glass relative z-10 rounded-xl p-10 mx-4" data-aos="zoom-in">
+  <h1 class="text-4xl md:text-6xl text-white font-bold mb-4">
+    Deliciously Flavored,<br>
+    Naturally Fermented,<br>
+    Always Fresh
+  </h1>
+  <p class="text-xl md:text-2xl font-semibold mb-6 text-[var(--sko-accent)] tracking-wide">
+    Stay Cultured
+  </p>
+  <a href="#flavors"
+     class="inline-block bg-[var(--sko-accent)] text-white px-8 py-3 rounded-full font-medium hover:shadow-lg transition">
+    Explore Flavors
+  </a>
+</div>
+
 </section>
 
-<section id="about" class="py-16 px-4 bg-[var(--color-skomby-background)]">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-    <div data-aos="fade-right">
-      <img
-        src="https://placehold.co/600x400/4F6D5A/F8F0E3?text=Kerala+Craft"
-        alt="About SKOMBY"
-        class="rounded-lg shadow-lg mx-auto"
-      />
-    </div>
+
+<!-- About -->
+<section id="about" class="py-20 px-6">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <img src="/home/test/SKOMBY/images/BUTTERFLYPEA.webp" alt="Butterfly Pea Bottle"
+         class="rounded-lg shadow-lg" data-aos="fade-right"/>
     <div data-aos="fade-left">
-      <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-green)] mb-6">
-        Our Story
-      </h2>
-      <p class="text-lg mb-6">
-        Skomby is a handcrafted health‑focused kombucha brewed with care in the heart of the Malabar region of Kerala, India.
-      </p>
-      <p class="text-lg mb-6">
-        We offer a refreshing, nourishing drink by combining ancient fermentation techniques with locally sourced ingredients, bringing you the authentic taste and goodness of Kerala in every bottle.
-      </p>
-      <a
-        href="#contact"
-        class="inline-block border border-[var(--color-skomby-purple)] text-[var(--color-skomby-purple)] py-3 px-8 rounded-full text-lg font-semibold hover:bg-[var(--color-skomby-purple)] hover:text-white transition"
-      >
-        Learn More
-      </a>
+      <h2 class="text-3xl md:text-4xl font-semibold mb-4">Why SKOMBY?</h2>
+      <ul class="space-y-3 text-base leading-relaxed">
+        <li><span class="text-[var(--sko-accent)] font-semibold">Local Goodness:</span> brewed in Malabar, supporting Kerala farmers.</li>
+        <li><span class="text-[var(--sko-accent)] font-semibold">Zero Nasties:</span> no preservatives, no artificial flavours.</li>
+        <li><span class="text-[var(--sko-accent)] font-semibold">Gut-friendly:</span> teeming with live probiotics.</li>
+        <li><span class="text-[var(--sko-accent)] font-semibold">Eco-minded:</span> recyclable glass bottles &amp; minimal packaging.</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<section id="flavors" class="py-16 px-4">
-  <div class="max-w-7xl mx-auto text-center">
-    <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-purple)] mb-12" data-aos="fade-up">
-      Our Natural Flavors
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Flavors -->
+<section id="flavors" class="py-20 bg-[var(--sko-accent)]/10">
+  <div class="text-center mb-14" data-aos="fade-up">
+    <h2 class="text-3xl md:text-4xl font-semibold mb-3">Signature Flavors</h2>
+    <p>Small-batch brewed, each with its own personality.</p>
+  </div>
 
-      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in">
-        <img src="https://raw.githubusercontent.com/afsalcprahman/SKOMBY-repo/refs/heads/main/images/1.webp?raw=true" alt="Zesty Orange Kombucha" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-        <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
-          <h3 class="text-xl font-semibold mb-2">Zesty Orange</h3>
-          <p class="text-sm">A bright and tangy burst of citrus, perfectly balanced with the natural fizz of kombucha. Crafted with fresh, real oranges for a vibrant taste.</p>
-        </div>
+  <div class="max-w-6xl mx-auto grid gap-10 md:grid-cols-3 px-6">
+    <!-- Card -->
+    <div class="group relative overflow-hidden rounded-xl shadow-lg" data-aos="zoom-in">
+      <img src="/home/test/SKOMBY/images/ORANGE.webp" class="object-cover w-full h-80 transition group-hover:scale-105 duration-500" alt="Zesty Orange"/>
+      <div class="absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition">
+        <h3 class="text-xl font-semibold text-white mb-1">Zesty Orange</h3>
+        <p class="text-sm text-gray-100 px-6 text-center">Bright citrus punch balanced with smooth fizz.</p>
       </div>
+    </div>
 
-      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="100">
-        <img src="https://raw.githubusercontent.com/afsalcprahman/SKOMBY-repo/refs/heads/main/images/2.webp?raw=true" alt="Ginger Zest Kombucha" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-        <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
-          <h3 class="text-xl font-semibold mb-2">Ginger Zest</h3>
-          <p class="text-sm">A warming and invigorating flavor with a delightful kick of natural ginger, perfect for a spicy-sweet refreshment.</p>
-        </div>
+    <div class="group relative overflow-hidden rounded-xl shadow-lg" data-aos="zoom-in" data-aos-delay="100">
+      <img src="/home/test/SKOMBY/images/BUTTERFLYPEA.webp" class="object-cover w-full h-80 transition group-hover:scale-105 duration-500" alt="Butterfly Pea"/>
+      <div class="absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition">
+        <h3 class="text-xl font-semibold text-white mb-1">Butterfly Pea</h3>
+        <p class="text-sm text-gray-100 px-6 text-center">Vibrant blue brew with berry undertones.</p>
       </div>
+    </div>
 
-      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="200">
-        <img src="https://raw.githubusercontent.com/afsalcprahman/SKOMBY-repo/refs/heads/main/images/3.webp?raw=true" alt="Berry Bliss Kombucha" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-        <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
-          <h3 class="text-xl font-semibold mb-2">Berry Bliss</h3>
-          <p class="text-sm">A delightful blend of mixed berries, offering a sweet and slightly tart explosion of fruity goodness.</p>
-        </div>
+    <div class="group relative overflow-hidden rounded-xl shadow-lg" data-aos="zoom-in" data-aos-delay="200">
+      <img src="/home/test/SKOMBY/images/PASSIONFRUIT.webp" class="object-cover w-full h-80 transition group-hover:scale-105 duration-500" alt="Passion Fruit"/>
+      <div class="absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition">
+        <h3 class="text-xl font-semibold text-white mb-1">Passion Delight</h3>
+        <p class="text-sm text-gray-100 px-6 text-center">Tropical tang with aromatic finish.</p>
       </div>
-
-      <div class="relative group w-full aspect-[4/5] overflow-hidden rounded-lg shadow-lg" data-aos="zoom-in" data-aos-delay="300">
-        <img src="https://raw.githubusercontent.com/afsalcprahman/SKOMBY-repo/refs/heads/main/images/4.webp?raw=true" alt="Tropical Mango Kombucha" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-        <div class="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4">
-          <h3 class="text-xl font-semibold mb-2">Tropical Mango</h3>
-          <p class="text-sm">A taste of the tropics! Sweet and juicy mango perfectly complements the refreshing fizz of our kombucha, a true Kerala delight.</p>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-
-<section id="contact" class="py-20 px-4 bg-[var(--color-skomby-background)]">
-  <div class="max-w-7xl mx-auto text-center">
-    <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-orange)] mb-8">
-      Find SKOMBY Near You
-    </h2>
-    <p class="text-lg mb-8 max-w-2xl mx-auto">
-      SKOMBY is available at select retail locations. Find your nearest store and grab yours today!
-    </p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+<!-- Contact -->
+<section id="contact" class="py-20 px-6">
+  <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+    <h2 class="text-3xl md:text-4xl font-semibold mb-4">Get In Touch</h2>
+    <p class="mb-12 text-lg">Connect with us through your preferred platform</p>
+    
+    <!-- Contact Options Grid - Now 2 Cards -->
+    <div class="grid gap-8 md:grid-cols-2 mb-12 max-w-2xl mx-auto">
       
-      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="0">
-        <a href="https://maps.app.goo.gl/zn1MQtGYeAMkvtDs8" target="_blank" rel="noopener">
-          <img
-            src="https://mamatharestaurant.com/wp-content/uploads/2024/12/7K04ED_1690456900233_0.png"
-            alt="Mamatha Grand City"
-            class="w-full h-full object-cover"
-          >
-          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
-            <h3 class="text-lg font-semibold mb-2">Mamatha Grand City</h3>
-            <p class="text-sm text-center">
-              Areekode Road, Edavannappara, Malappuram, Kerala 673645
-            </p>
-          </div>
+      <!-- WhatsApp - Priority #1 -->
+      <div class="group p-8 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
+        <div class="w-16 h-16 mx-auto mb-4 bg-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-[var(--sko-text)]">Chat With Us</h3>
+        <p class="text-gray-600 mb-4 text-sm">Quick questions? Get instant responses</p>
+        <a href="https://wa.me/7511151418?text=Hi,%20I%20want%20to%20know%20about%20Skomby!"
+          target="_blank" rel="noopener"
+          class="inline-block bg-green-500 text-white px-6 py-3 rounded-full font-medium hover:bg-green-600 transition-colors duration-300">
+          WhatsApp Now
         </a>
+
       </div>
 
-      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
-        <a href="https://maps.app.goo.gl/cRS9TQyo2aa3Pvbh6" target="_blank" rel="noopener">
-          <img
-            src="https://www.mallofmukkam.com/images/shops/freshday.jpg"
-            alt="Mall of Mukkam"
-            class="w-full h-full object-cover"
-          >
-          <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
-            <h3 class="text-lg font-semibold mb-2">Fresh Day, Mall of Mukkam</h3>
-            <p class="text-sm text-center">
-              Edavanna - Koyilandy State Highway, Opposite Bypass Road, Mukkam, Kozhikode, Kerala 673602
-            </p>
-          </div>
+      <!-- Gmail - Official Contact -->
+      <div class="group p-8 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="w-16 h-16 mx-auto mb-4 bg-red-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.273L12 10.186l10.091-6.365h.273c.904 0 1.636.732 1.636 1.636z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-[var(--sko-text)]">Official Inquiries</h3>
+        <p class="text-gray-600 mb-4 text-sm">Business partnerships & bulk orders</p>
+        <a href="mailto:contactskomby@gmail.com?subject=SKOMBY%20Inquiry&body=Hello%20SKOMBY%20team,%0A%0AI'm%20interested%20in%20learning%20more%20about..." 
+           class="inline-block bg-red-500 text-white px-6 py-3 rounded-full font-medium hover:bg-red-600 transition-colors duration-300">
+          Email Us
         </a>
       </div>
-
-      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
-        <a href="https://maps.app.goo.gl/6JGr8LrGGYsxMPtQ9" target="_blank" rel="noopener"> <img
-            src="https://via.placeholder.com/400x300/4A3B31/F8F0E3?text=Family+Hypermart"
-            alt="Family Hypermart"
-            class="w-full h-full object-cover"
-            >
-            <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
-            <h3 class="text-lg font-semibold mb-2">Family Hypermart</h3>
-            <p class="text-sm text-center">Mukkam, Kozhikode, Kerala</p>
-            </div>
-        </a>
-      </div>
-
-      <div class="relative group w-full h-48 overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
-        <a href="https://maps.app.goo.gl/YFTGKAyfAzeEduvN7" target="_blank" rel="noopener"> <img
-            src="https://via.placeholder.com/400x300/E5735A/F8F0E3?text=Freshlyone+Hypermarket"
-            alt="Freshlyone Hypermarket"
-            class="w-full h-full object-cover"
-            >
-            <div class="absolute inset-0 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-center items-center text-white p-4">
-            <h3 class="text-lg font-semibold mb-2">Freshlyone Hypermarket</h3>
-            <p class="text-sm text-center">
-                13/428/A, Kozhikode Road, Chullikkamparamb, Cheruvadi, Kozhikode, Kerala 673661
-            </p>
-            </div>
-        </a>
-      </div>
-
     </div>
 
-    <div class="mt-12 text-center">
-      <h2 class="text-3xl sm:text-4xl font-serif-skomby text-[var(--color-skomby-green)] mb-8">
-        Get in Touch
-      </h2>
-      <p class="text-lg mb-8 max-w-2xl mx-auto">
-        Have questions or interested in stocking SKOMBY? We'd love to hear from you!
-      </p>
-      <div class="flex justify-center space-x-6">
-        <a href="mailto:contactskomby@gmail.com" class="hover:scale-110 transition-transform">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
-            alt="Gmail icon"
-            class="w-12 h-12"
-          >
+    <!-- Instagram Call-to-Action with Brand Colors -->
+    <div class="bg-[var(--sko-accent)]/10 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="300">
+      <div class="text-center">
+        <h3 class="text-2xl font-semibold mb-4 text-[var(--sko-text)]">Follow Our Brewing Journey</h3>
+        <p class="mb-6 text-lg max-w-lg mx-auto">Get daily brewing insights, flavor reveals, and behind-the-scenes content from us</p>
+        
+        <!-- Instagram Button with Brand Color -->
+        <a href="https://instagram.com/skomby" 
+           target="_blank" rel="noopener"
+           class="inline-flex items-center gap-3 bg-[var(--sko-accent)] text-white px-8 py-4 rounded-full font-medium hover:bg-[var(--sko-accent)]/90 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-lg">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          Follow @skomby
         </a>
-        <a href="https://wa.me/7511151418" target="_blank" class="hover:scale-110 transition-transform">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
-            alt="WhatsApp icon"
-            class="w-12 h-12"
-          >
-        </a>
-        <a href="https://www.instagram.com/skomby" target="_blank" class="hover:scale-110 transition-transform"> <img
-            src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
-            alt="Instagram icon"
-            class="w-12 h-12"
-          >
-        </a>
+        
+        <!-- Subtle engagement text -->
+        <p class="mt-4 text-sm text-gray-500">Join our growing community of kombucha enthusiasts</p>
       </div>
     </div>
   </div>
 </section>
 
 
-  <footer class="bg-[var(--color-skomby-text)] text-white py-8 px-4">
-    <div class="max-w-7xl mx-auto text-center">
-      <p>© 2025 SKOMBY. All rights reserved.</p>
-      <div class="flex justify-center space-x-4 mt-4 text-2xl">
-        <a href="https://www.instagram.com/skomby" target="_blank" class="hover:text-[var(--color-skomby-orange)] transition duration-300">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://www.facebook.com/skomby" target="_blank" class="hover:text-[var(--color-skomby-orange)] transition duration-300">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="https://twitter.com/skomby" target="_blank" class="hover:text-[var(--color-skomby-orange)] transition duration-300">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </div>
-    </div>
-  </footer>
 
-  <div id="back-to-top" class="hidden">
-    <i class="fas fa-arrow-up"></i>
-  </div>
+<!-- Footer -->
+<footer class="py-8 text-center bg-[var(--sko-text)] text-[var(--sko-bg)]">
+  <p class="text-sm">&copy; 2025 SKOMBY. All rights reserved.</p>
+</footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script>
-    // Initialize AOS
-    AOS.init({
-      duration: 800,
-      once: true
-    });
+<!-- Floating Back-to-Top -->
+<div id="fab" title="Back to top">&#8679;</div>
 
-    // Header Sticky and Scroll-based blur
-    const header = document.getElementById('header');
-    const backToTopButton = document.getElementById('back-to-top');
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+  AOS.init({duration:800,once:true});
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) { // Adjust scroll threshold as needed
-            header.classList.add('header-scrolled');
-            backToTopButton.classList.add('show');
-        } else {
-            header.classList.remove('header-scrolled');
-            backToTopButton.classList.remove('show');
-        }
-    });
+  // Mobile menu toggle
+  const menuBtn=document.getElementById('menuBtn'),
+        mobileNav=document.getElementById('mobileNav');
+  menuBtn.addEventListener('click',()=>mobileNav.classList.toggle('hidden'));
 
-    // Back to top functionality
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
+  // Back-to-top
+  const fab=document.getElementById('fab');
+  window.addEventListener('scroll',()=>{
+    fab.style.display=window.scrollY>300?'flex':'none';
+  });
+  fab.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-    // Mobile Menu Toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const closeMobileMenuButton = document.getElementById('close-mobile-menu');
-    const mobileNavLinks = document.getElementById('mobile-nav-links');
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-
-    function openMobileMenu() {
-        mobileNavLinks.classList.remove('translate-x-full');
-        mobileNavLinks.classList.add('translate-x-0');
-        mobileMenuOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
-    }
-
-    function closeMobileMenu() {
-        mobileNavLinks.classList.remove('translate-x-0');
-        mobileNavLinks.classList.add('translate-x-full');
-        mobileMenuOverlay.classList.remove('active');
-        document.body.style.overflow = ''; // Restore scrolling
-    }
-
-    mobileMenuButton.addEventListener('click', openMobileMenu);
-    closeMobileMenuButton.addEventListener('click', closeMobileMenu);
-    mobileMenuOverlay.addEventListener('click', closeMobileMenu); // Close when clicking overlay
-
-    // Close mobile menu when a link is clicked
-    document.querySelectorAll('#mobile-nav-links a').forEach(link => {
-        link.addEventListener('click', closeMobileMenu);
-    });
-  </script>
+  
+</script>
 </body>
 </html>
